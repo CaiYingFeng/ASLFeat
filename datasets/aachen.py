@@ -15,11 +15,12 @@ class Aachen(BaseDataset):
     def _init_dataset(self, **config):
         print(Notify.INFO, "Initializing dataset:", config['data_name'], Notify.ENDC)
         base_path = config['data_root']
-        base_path = os.path.join(base_path, 'images', 'images_upright')
+        # base_path = os.path.join(base_path, 'images', 'images_upright')
         seq_paths = config['data_split']
         image_paths = []
         for tmp_seq in seq_paths:
             seq_path = os.path.join(base_path, tmp_seq)
+            image_paths.extend(glob.glob(os.path.join(seq_path, '*.png')))
             image_paths.extend(glob.glob(os.path.join(seq_path, '*.jpg')))
         if config['truncate'] is not None:
             print(Notify.WARNING, "Truncate from",

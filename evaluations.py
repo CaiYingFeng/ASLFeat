@@ -21,10 +21,10 @@ tf.app.flags.DEFINE_string('config', None, """Path to the configuration file."""
 
 def extract_feat(config):
     """Extract augmented features."""
-    prog_bar = progressbar.ProgressBar()
+    prog_bar = progressbar.ProgressBar().start()
     config['stage'] = 'det'
     dataset = get_dataset(config['data_name'])(**config)
-    prog_bar.max_value = dataset.data_length
+    prog_bar.maxval = dataset.data_length
     test_set = dataset.get_test_set()
 
     model = get_model('feat_model')(config['model_path'], **(config['net']))
@@ -34,6 +34,8 @@ def extract_feat(config):
             data = next(test_set)
             if config['overwrite'] or not os.path.exists(data['dump_path']):
                 desc, kpt, score = model.run_test_data(data['image'])
+
+                
                 dump_data = {}
                 dump_data['dump_data'] = (desc, kpt, score)
                 dump_data['image_path'] = data['image_path']

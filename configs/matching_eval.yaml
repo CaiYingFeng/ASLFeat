@@ -1,4 +1,4 @@
-model_path: 'pretrained/aslfeat/model.ckpt-380000'
+model_path: 'pretrained/aslfeatv2/model.ckpt-60000'
 img_paths: ['imgs/test_img1.jpg', 'imgs/test_img2.jpg']
 net:
   max_dim: 2048
